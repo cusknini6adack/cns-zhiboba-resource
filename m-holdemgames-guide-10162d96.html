@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>德州扑克游戏规则、术语与策略 · 知识库</title>
+    <style>
+        /* 全局重置 & 浅灰背景 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #f2f4f7;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #1f2a3f;
+            line-height: 1.65;
+            padding: 2rem 1.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 页眉 */
+        .page-header {
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid #dce1e8;
+            padding-bottom: 1.2rem;
+        }
+        .page-header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #0b1a2e;
+        }
+        .page-header p {
+            margin-top: 0.4rem;
+            color: #4b5b72;
+            font-size: 0.95rem;
+        }
+
+        /* 卡片网格 — 目录感布局 */
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.02);
+            border: 1px solid #e2e7ef;
+            padding: 1.6rem 1.8rem;
+            transition: box-shadow 0.2s;
+        }
+        .card:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.7rem;
+            color: #14273e;
+            border-left: 4px solid #3b6ea5;
+            padding-left: 0.8rem;
+        }
+        .card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0.9rem 0 0.4rem;
+            color: #25415e;
+        }
+        .card p, .card li {
+            font-size: 0.95rem;
+            color: #2c3f58;
+        }
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .card li {
+            padding: 0.2rem 0 0.2rem 1.1rem;
+            position: relative;
+        }
+        .card li::before {
+            content: "·";
+            position: absolute;
+            left: 0.2rem;
+            color: #3b6ea5;
+            font-weight: 700;
+        }
+
+        /* 两个按钮式卡片（用于引导和提示） */
+        .action-card {
+            background: #ffffff;
+            border: 1px solid #e2e7ef;
+            border-radius: 14px;
+            padding: 1.5rem 1.8rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            text-align: center;
+        }
+        .action-card p {
+            margin-bottom: 0.8rem;
+            font-size: 0.96rem;
+            color: #31475f;
+        }
+        .inline-link {
+            color: #1f5090;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dashed #a0b8d6;
+            transition: border-color 0.15s;
+        }
+        .inline-link:hover {
+            border-bottom: 1px solid #1f5090;
+        }
+
+        /* 提示区 & 相关信息区 */
+        .info-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .note-box {
+            background: #f8fafd;
+            border: 1px solid #dce3ee;
+            border-radius: 12px;
+            padding: 1.3rem 1.6rem;
+        }
+        .note-box h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #213a53;
+            margin-bottom: 0.5rem;
+        }
+        .note-box p, .note-box li {
+            font-size: 0.92rem;
+            color: #35506b;
+        }
+
+        .faq-preview {
+            background: #ffffff;
+            border: 1px solid #e2e7ef;
+            border-radius: 12px;
+            padding: 1.3rem 1.6rem;
+        }
+        .faq-preview h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #213a53;
+            margin-bottom: 0.6rem;
+        }
+        .faq-item {
+            margin-bottom: 0.6rem;
+        }
+        .faq-item strong {
+            display: block;
+            font-weight: 600;
+            color: #1a314b;
+            font-size: 0.92rem;
+        }
+        .faq-item span {
+            font-size: 0.9rem;
+            color: #3e5b78;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #d8e0ea;
+            margin: 1.8rem 0;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6b7f99;
+            margin-top: 2rem;
+            border-top: 1px solid #dce1e8;
+            padding-top: 1.8rem;
+        }
+
+        /* 响应式 */
+        @media (min-width: 600px) {
+            body { padding: 2.5rem 2rem; }
+            .knowledge-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .info-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (min-width: 900px) {
+            .container { padding: 0 0.5rem; }
+            .knowledge-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            .page-header h1 { font-size: 2.1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- 页眉：知识库入口式说明 -->
+    <header class="page-header">
+        <h1>德州扑克 · 规则与策略速查</h1>
+        <p>面向日常查询、术语对照、局面分析与延伸阅读 — 精简信息卡片，快速定位关键点。</p>
+    </header>
+
+    <!-- 目录感网格：说明区、对照区、延伸阅读区 -->
+    <div class="knowledge-grid">
+        <!-- 卡片 1: 基础结构 & 手牌说明 -->
+        <div class="card">
+            <h2>牌局结构</h2>
+            <p>标准德州扑克使用 52 张扑克牌，每局由翻牌前、翻牌、转牌、河牌四个下注圈构成。玩家使用两张底牌与五张公共牌组合最佳五张牌型。</p>
+            <ul>
+                <li>庄位（Button）每局顺时针移动</li>
+                <li>小盲、大盲强制下注</li>
+                <li>行动顺序：翻牌前大盲后，翻牌后从庄位左侧开始</li>
+            </ul>
+        </div>
+
+        <!-- 卡片 2: 常见术语对照（日常查询） -->
+        <div class="card">
+            <h2>常用术语对照</h2>
+            <ul>
+                <li><strong>Outs</strong> — 补牌数，可提升手牌的剩余牌张</li>
+                <li><strong>Pot Odds</strong> — 底池赔率，跟注成本与潜在收益比</li>
+                <li><strong>Check-Raise</strong> — 先过牌，对手下注后再加注</li>
+                <li><strong>Continuation Bet</strong> — 翻牌前加注者翻牌后持续下注</li>
+                <li><strong>Bluff</strong> — 诈唬，无强牌时下注迫使弃牌</li>
+                <li><strong>Value Bet</strong> — 价值下注，用强牌从较弱牌中榨取价值</li>
+            </ul>
+        </div>
+
+        <!-- 卡片 3: 胜率与场景速记 -->
+        <div class="card">
+            <h2>常见场景速查</h2>
+            <ul>
+                <li>口袋对 vs 两张高牌：约 55% : 45%</li>
+                <li>同花连牌（如 8♥9♥）vs 高对：约 20% : 80%</li>
+                <li>顶对顶踢脚 vs 中对：约 70% : 30%</li>
+                <li>听同花（翻牌圈）：约 35% 成牌概率</li>
+                <li>听顺子（两头顺）：约 31.5% 成牌概率</li>
+            </ul>
+            <p style="margin-top:0.6rem; font-size:0.88rem; color:#4f6885;">以上为翻牌圈全下情景的近似概率，实际受剩余补牌及对手范围影响。</p>
+        </div>
+    </div>
+
+    <!-- 提示区 + FAQ 摘要（混合布局） -->
+    <div class="info-row">
+        <div class="note-box">
+            <h3>📘 常见误区提示</h3>
+            <ul>
+                <li>同花或连张并不总是值得入池，位置与底池赔率更关键。</li>
+                <li>“慢打”强牌有时会损失价值，尤其牌面湿润时。</li>
+                <li>翻牌前 3-bet 和 4-bet 更多是范围对抗，而非只看手牌强度。</li>
+                <li>不建议仅凭直觉频繁诈唬，应结合对手弃牌率与桌面动态。</li>
+            </ul>
+        </div>
+        <div class="faq-preview">
+            <h3>❓ 常见问答摘要</h3>
+            <div class="faq-item">
+                <strong>位置为什么重要？</strong>
+                <span>后位玩家在每一圈都能观察对手行动后再决策，信息优势明显，可更精确控制底池。</span>
+            </div>
+            <div class="faq-item">
+                <strong>如何计算底池赔率？</strong>
+                <span>跟注金额 ÷（当前底池 + 跟注金额）。若成牌概率高于赔率，跟注长期有利。</span>
+            </div>
+            <div class="faq-item">
+                <strong>翻牌圈应该持续下注吗？</strong>
+                <span>取决于翻牌结构、对手范围与自身手牌。通常翻牌与自身范围契合时可高频下注。</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 动作卡片：引导指向网站（自然嵌入句子） -->
+    <div class="action-card">
+        <p>若希望查阅更完整的牌型表、概率计算工具与进阶翻前翻后策略，可直接在 <a class="inline-link" href="https://m-holdemgames.com">德州扑克游戏</a> 知识板块中对照学习。该页面提供体系化的分类内容，适应从入门到熟练玩家的查询需求。</p>
+        <p style="font-size:0.9rem; color:#4b627e;">包括手牌胜率图表、位置策略、锦标赛与现金局差异说明。</p>
+    </div>
+
+    <!-- 附加说明区：延伸阅读方向 -->
+    <hr>
+    <div style="display: grid; grid-template-columns: 1fr; gap:1rem; margin-bottom:0.5rem;">
+        <div class="card" style="padding: 1.2rem 1.6rem;">
+            <h2 style="border-left-color: #748aa8;">延伸阅读方向</h2>
+            <ul style="columns: 1; @media (min-width:600px){columns:2;}">
+                <li>GTO 与剥削性策略的区别</li>
+                <li>范围构建与阻隔牌应用</li>
+                <li>多路底池与单挑底池的决策差异</li>
+                <li>ICM 在锦标赛中的影响</li>
+                <li>情绪管理与下注尺度选择</li>
+            </ul>
+            <p style="margin-top:0.6rem; font-size:0.9rem; color:#456183;">以上主题均可在对应站点内找到系统梳理，辅助日常对照与复盘。</p>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer-note">
+        <span>知识库入口 · 信息仅供参考，实际游戏请结合自身判断</span>
+    </div>
+
+</div>
+</body>
+</html>
